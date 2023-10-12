@@ -1,4 +1,4 @@
-# Strava Club Activity Fetcher
+# Strava Club Activity & SegmentEffort Fetcher
 
 This is a simple Python script that uses the Strava API to fetch activities and segment efforts of users in a 
 Strava club, and writes them to corresponding CSV files.
