@@ -11,14 +11,14 @@ def setup_csv_files():
 
         # Creating the segments files and filling in the headers
         for segment in config.strava_segments:
-            os.remove(f"{config.segments_folder}/{segment}.csv") \
-                if os.path.isfile(f"{config.segments_folder}/{segment}.csv") \
-                else print(f"Creating {segment}.csv")
+            os.remove(f"{config.segments_folder}/{segment['name']}.csv") \
+                if os.path.isfile(f"{config.segments_folder}/{segment['name']}.csv") \
+                else print(f"Creating {segment['name']}.csv")
 
             # Filling in the headers of the segment file
-            with open(f"{config.segments_folder}/{segment}.csv", "w") as writefile:
+            with open(f"{config.segments_folder}/{segment['name']}.csv", "w") as writefile:
                 writefile.write("firstname,lastname,attempts\n")
-            print(f"Refreshed {segment}.csv")
+            print(f"Refreshed {segment['name']}.csv")
 
         # Creating the activities file
         os.remove(f"{config.activities_folder}/activities.csv") \

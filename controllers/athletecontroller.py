@@ -41,14 +41,14 @@ def get_access_token(refresh_token):
 def get_user_year_activities(firstname, lastname, refresh_token):
     if not refresh_token or not firstname or not lastname:
         return ValueError("Invalid arguments")
-    if config.activity_limit > 200:
+    if config.per_page > 200:
         return ValueError("config.activity_limit cannot exceed 200")
     if not isinstance(config.low_epoch, int) or not isinstance(config.high_epoch, int):
         return ValueError("low_epoch and high_epoch should be integers")
     if config.low_epoch > config.high_epoch:
         return ValueError("low_epoch should be before high_epoch")
 
-    print(f"\nGetting activities of {firstname} {lastname}")
+    print(f"\nFetching activities of {firstname} {lastname}")
 
     access_token = get_access_token(refresh_token)
 
@@ -65,7 +65,7 @@ def get_user_year_activities(firstname, lastname, refresh_token):
                                      f"/api/v3/athlete/activities?after={config.low_epoch}"
                                      f"&before={config.high_epoch}"
                                      f"&page={page}"
-                                     f"&per_page={config.activity_limit}",
+                                     f"&per_page={config.per_page}",
                                      headers=headers)
 
         raw_activities = json.loads(stravahttpconnection.getresponse().read())
