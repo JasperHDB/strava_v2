@@ -4,7 +4,7 @@ import psycopg2
 import atexit
 from dotenv import load_dotenv
 from controllers.athletecontroller import AthleteController
-from controllers.athletecontroller import get_access_token
+from controllers.segmentcontroller import get_athlete_segment_efforts
 
 stravahttpconnection = http.client.HTTPSConnection("www.strava.com")
 
@@ -35,8 +35,13 @@ def close_connection(conn):
 
 
 if __name__ == "__main__":
-    # get_all_user_year_activities()
+    athlete_controller.get_all_user_year_activities()
 
-    print(get_access_token(athlete_controller.get_refresh_token(15376382)))
+    for athlete in athlete_controller.get_all_athletes():
+        firstname = athlete[0]
+        lastname = athlete[1]
+        refresh_token = athlete[2]
+
+        get_athlete_segment_efforts(firstname, lastname, refresh_token)
 
 atexit.register(close_connection, connection)
